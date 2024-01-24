@@ -27,7 +27,7 @@ This is a simple text editing Progressive Web Appication (PWA) that retains its 
 ## Links
 
 * GitHub: https://github.com/IvanDirigible/automatic-octo
-* Deployed: 
+* Deployed: https://automated-octo.onrender.com
 
 ## Usage Example
 
