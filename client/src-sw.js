@@ -27,43 +27,11 @@ warmStrategyCache({
 registerRoute(({ request }) => request.mode === 'navigate', pageCache);
 
 // TODO: Implement asset caching
-// registerRoute(
-//   ({ request }) => {
-//     console.log(request);
-//     return (
-//       request.destination === 'style' || request.destination === 'script'
-//     );
-//   },
-//   new StaleWhileRevalidate({
-//     cacheName: 'static-resources',
-//     plugins: [
-//       new CacheableResponsePlugin({
-//         statuses: [0, 200],
-//       }),
-//     ],
-//   })
-// );
-
-// registerRoute(
-//   ({ request }) => request.destination === 'image',
-//   new CacheFirst({
-//     cacheName: 'jate-image-cache',
-//     plugins: [
-//       new CacheableResponsePlugin({
-//         statuses: [0, 200],
-//       }),
-//       new ExpirationPlugin({
-//         maxEntries: 60,
-//         maxAgeSeconds: 14 * 24 * 60 * 60,
-//       }),
-//     ],
-//   })
-// );
 registerRoute(
   ({ request }) => {
     console.log(request);
     return (
-      request.destination === 'style' || request.destination === 'script' || request.destination === 'worker'
+      request.destination === 'style' || request.destination === 'script'
     );
   },
   new StaleWhileRevalidate({
@@ -75,3 +43,36 @@ registerRoute(
     ],
   })
 );
+
+registerRoute(
+  ({ request }) => request.destination === 'image',
+  new CacheFirst({
+    cacheName: 'jate-image-cache',
+    plugins: [
+      new CacheableResponsePlugin({
+        statuses: [0, 200],
+      }),
+      new ExpirationPlugin({
+        maxEntries: 60,
+        maxAgeSeconds: 14 * 24 * 60 * 60,
+      }),
+    ],
+  })
+);
+
+// registerRoute(
+//   ({ request }) => {
+//     console.log(request);
+//     return (
+//       request.destination === 'style' || request.destination === 'script' || request.destination === 'worker'
+//     );
+//   },
+//   new StaleWhileRevalidate({
+//     cacheName: 'static-resources',
+//     plugins: [
+//       new CacheableResponsePlugin({
+//         statuses: [0, 200],
+//       }),
+//     ],
+//   })
+// );
